@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Subscription } from 'rxjs';
 import { EcommDataService } from 'src/app/shared/ecomm-data.service';
 import { Product } from 'src/app/shared/interfaces/product';
@@ -36,6 +37,25 @@ export class AboutComponent implements OnInit , OnDestroy{
       }
     })
   //  console.log(this._ActivatedRoute.paramMap);
+  }
+
+
+  mainOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: false,
+    dots: true,
+    navSpeed: 900,
+    autoplay:true,
+    autoplayTimeout:3000,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      }
+    },
+    nav: false
   }
 
 }

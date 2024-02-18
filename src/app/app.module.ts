@@ -18,7 +18,8 @@ import { ProductsComponent } from './components/products/products.component';
 import { BrandsComponent } from './components/brands/brands.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { NavbarAuthComponent } from './components/navbar-auth/navbar-auth.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,9 @@ import { NavbarAuthComponent } from './components/navbar-auth/navbar-auth.compon
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    CarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent]

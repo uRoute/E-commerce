@@ -17,4 +17,9 @@ export class EcommDataService {
   getProductDetails(id:string):Observable<any>{
     return this._HttpClient.get(`${this.baseUrl}/api/v1/products/${id}`)
   }
+
+  getAllCategories():Observable<any>{
+    return this._HttpClient.get(`${this.baseUrl}/api/v1/categories`)
+  }
+
 }

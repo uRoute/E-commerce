@@ -2,7 +2,15 @@
     <div class="row align-items-center ">
         <div class="col-12 col-sm-12 col-md-3 p-2">
             <div class="product-image">
-                <img class="w-100 rounded" [src]="product.imageCover" [alt]="product.title" srcset="">
+                <div class="product-image">
+                    <owl-carousel-o [options]="mainOptions">
+                        <ng-container *ngFor="let slide of product.images">
+                          <ng-template carouselSlide>
+                            <img [src]="slide" [alt]="slide" [title]="slide">
+                          </ng-template>
+                        </ng-container>
+                      </owl-carousel-o>
+                </div>
             </div>
         </div>
         <div class="col-12 col-sm-12 col-md-9 p-2">
