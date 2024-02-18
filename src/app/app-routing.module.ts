@@ -29,6 +29,7 @@ const routes: Routes = [
     {path:'home',component:HomeComponent,title:'Home' },
     {path:'cart',component:CartComponent,title:'Cart'},
     {path:'categories',component:CategoriesComponent,title:'Categories'},
+    {path:'details/:id',component:AboutComponent,title:'Details'},
     {path:'products',component:ProductsComponent,title:'Products'},
     {path:'brands',component:BrandsComponent,title:'Brands'},
   ]},

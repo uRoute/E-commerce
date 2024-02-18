@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EcommDataService } from 'src/app/shared/ecomm-data.service';
+import { Product } from 'src/app/shared/interfaces/product';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { EcommDataService } from 'src/app/shared/ecomm-data.service';
 })
 export class HomeComponent implements OnInit , OnDestroy{
   dataSubscripe:Subscription = new Subscription();
-  products:any[] = []
+  products:Product[] = []
   constructor(private _EcommDataService:EcommDataService){}
   ngOnInit(): void {
     this.dataSubscripe = this._EcommDataService.getAllProducts().subscribe({
