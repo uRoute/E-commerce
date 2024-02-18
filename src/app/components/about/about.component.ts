@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Subscription } from 'rxjs';
+import { CartService } from 'src/app/shared/cart.service';
 import { EcommDataService } from 'src/app/shared/ecomm-data.service';
 import { Product } from 'src/app/shared/interfaces/product';
 
@@ -12,10 +13,12 @@ import { Product } from 'src/app/shared/interfaces/product';
 })
 export class AboutComponent implements OnInit , OnDestroy{
   product:Product = {} as Product;
-  detailsSub:Subscription = new Subscription()
-  constructor(private _ActivatedRoute:ActivatedRoute,private _EcommDataService:EcommDataService){}
+  detailsSub:Subscription = new Subscription();
+  addtocartSubscripe:Subscription = new Subscription();
+  constructor(private _ActivatedRoute:ActivatedRoute,private _EcommDataService:EcommDataService,private _CartService:CartService){}
   ngOnDestroy(): void {
-    this.detailsSub.unsubscribe()
+    this.detailsSub.unsubscribe();
+    this.addtocartSubscripe.unsubscribe();
   }
   ngOnInit(): void {
     this._ActivatedRoute.paramMap.subscribe({
@@ -38,6 +41,18 @@ export class AboutComponent implements OnInit , OnDestroy{
     })
   //  console.log(this._ActivatedRoute.paramMap);
   }
+
+  addtoCart(id:string):void{
+    this.addtocartSubscripe = this._CartService.addToCart(id).subscribe({
+      next:(respo)=>{
+        console.log(respo);
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+
 
 
   mainOptions: OwlOptions = {

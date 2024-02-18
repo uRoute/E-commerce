@@ -20,6 +20,7 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { NavbarAuthComponent } from './components/navbar-auth/navbar-auth.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    CarouselModule
+    CarouselModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

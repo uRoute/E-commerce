@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Subscription } from 'rxjs';
+import { CartService } from 'src/app/shared/cart.service';
 import { EcommDataService } from 'src/app/shared/ecomm-data.service';
 import { Category, Product } from 'src/app/shared/interfaces/product';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,9 +13,10 @@ import { Category, Product } from 'src/app/shared/interfaces/product';
 export class HomeComponent implements OnInit , OnDestroy{
   dataSubscripe:Subscription = new Subscription();
   categorySubscripe:Subscription = new Subscription();
+  addtocartSubscripe:Subscription = new Subscription();
   products:Product[] = []
   category:Category[] = []
-  constructor(private _EcommDataService:EcommDataService){}
+  constructor(private _EcommDataService:EcommDataService,private _CartService:CartService,private _toastr: ToastrService){}
   ngOnInit(): void {
     this.dataSubscripe = this._EcommDataService.getAllProducts().subscribe({
       next:(respo)=>{
@@ -39,8 +41,22 @@ export class HomeComponent implements OnInit , OnDestroy{
   ngOnDestroy(): void {
     this.dataSubscripe.unsubscribe();
     this.categorySubscripe.unsubscribe();
+    this.addtocartSubscripe.unsubscribe();
   }
-
+  addtoCart(id:string):void{
+    this.addtocartSubscripe = this._CartService.addToCart(id).subscribe({
+      next:(respo)=>{
+        console.log(respo);
+        this._toastr.success(respo.message);
+      },
+      error:(err)=>{
+        console.log(err);
+        this._toastr.error(err.message, 'Major Error', {
+          timeOut: 3000,
+        });
+      }
+    })
+  }
 
 
   categoryOptions: OwlOptions = {
