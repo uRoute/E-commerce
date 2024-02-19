@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormControlOptions, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthServiceService } from 'src/app/shared/auth-service.service';
@@ -15,12 +15,24 @@ export class RegisterComponent implements OnDestroy {
   responseError:string = ''
   loading:boolean = false;
   registerFrom:FormGroup = new FormGroup({
-    name:new FormControl(null,[Validators.required,Validators.minLength(3),Validators.maxLength(10)]),
-    email:new FormControl(null,[Validators.required,Validators.email]),
-    password:new FormControl(null,[Validators.required,Validators.pattern(/^[A-Z][a-z0-9]{6,20}$/)]),
-    rePassword:new FormControl(null,[Validators.required,Validators.pattern(/^[A-Z][a-z0-9]{6,20}$/)]),
-    phone:new FormControl(null,[Validators.required,Validators.pattern(/^01[0125][0-9]{8}$/)]),
-  })
+    name:new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(10)]),
+    email:new FormControl('',[Validators.required,Validators.email]),
+    password:new FormControl('',[Validators.required,Validators.pattern(/^[A-Z][a-z0-9]{6,20}$/)]),
+    rePassword:new FormControl(''),
+    phone:new FormControl('',[Validators.required,Validators.pattern(/^01[0125][0-9]{8}$/)]),
+  },{validators:[this.passwordConfirm]} as FormControlOptions )
+
+
+  passwordConfirm(group:FormGroup){
+    let password = group.get('password');
+    let rePassword = group.get('rePassword');
+    if(rePassword?.value===''){
+      rePassword.setErrors({required:true})
+    }else if(rePassword?.value !== password?.value){
+      rePassword?.setErrors({mismatch:true})
+    }
+  }
+
   register():void{
     // console.log(this.registerFrom.value);
     if(this.registerFrom.valid){

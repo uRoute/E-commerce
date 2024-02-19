@@ -11,6 +11,7 @@ export class CartService {
     token:localStorage.getItem('userToken')
   }
   constructor(private _HttpClient:HttpClient) { }
+
   addToCart(id:string):Observable<any>{
     return this._HttpClient.post(`${this.baseUrl}/api/v1/cart`,
     {
@@ -21,5 +22,27 @@ export class CartService {
     })
   }
 
-  ///api/v1/cart
+  getCart():Observable<any>{
+    return this._HttpClient.get(`${this.baseUrl}/api/v1/cart`,
+    {
+      headers:this.headerToken
+    })
+  }
+
+  removeCartItem(id:string):Observable<any>{
+    return this._HttpClient.delete(`${this.baseUrl}/api/v1/cart/${id}`,{
+      headers:this.headerToken
+    })
+  }
+  updateCartItemCount(id:string,count:number):Observable<any>{
+    return this._HttpClient.put(`${this.baseUrl}/api/v1/cart/${id}`
+    ,
+    {
+      count:count
+    },
+    {
+      headers:this.headerToken
+    }
+    )
+  }
 }

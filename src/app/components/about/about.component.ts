@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { CartService } from 'src/app/shared/cart.service';
 import { EcommDataService } from 'src/app/shared/ecomm-data.service';
@@ -15,7 +16,7 @@ export class AboutComponent implements OnInit , OnDestroy{
   product:Product = {} as Product;
   detailsSub:Subscription = new Subscription();
   addtocartSubscripe:Subscription = new Subscription();
-  constructor(private _ActivatedRoute:ActivatedRoute,private _EcommDataService:EcommDataService,private _CartService:CartService){}
+  constructor(private _ActivatedRoute:ActivatedRoute,private _EcommDataService:EcommDataService,private _CartService:CartService,private _toastr: ToastrService){}
   ngOnDestroy(): void {
     this.detailsSub.unsubscribe();
     this.addtocartSubscripe.unsubscribe();
@@ -46,6 +47,7 @@ export class AboutComponent implements OnInit , OnDestroy{
     this.addtocartSubscripe = this._CartService.addToCart(id).subscribe({
       next:(respo)=>{
         console.log(respo);
+        this._toastr.success(respo.message);
       },
       error:(err)=>{
         console.log(err);
@@ -53,7 +55,7 @@ export class AboutComponent implements OnInit , OnDestroy{
     })
   }
 
-
+ 
 
   mainOptions: OwlOptions = {
     loop: true,

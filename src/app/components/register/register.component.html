@@ -31,8 +31,8 @@
                 <label for="repassword">Repassword:</label>
                 <input formControlName="rePassword" id="repassword" class="form-control" placeholder="ex:Youssef@123"  type="password">
                 <div class="alert alert-danger my-2" *ngIf="registerFrom.get('rePassword')?.errors && registerFrom.get('rePassword')?.touched">
-                    <p *ngIf="registerFrom.get('rePassword')?.getError('required')">repassword is required</p>
-                    <p *ngIf="registerFrom.get('rePassword')?.getError('pattern')">repassword must be from 6 to 20 characters and first letter must be letter with UPPER case</p>
+                    <p *ngIf="registerFrom.get('rePassword')?.getError('required')">repassword confirmation is required</p>
+                    <p *ngIf="registerFrom.get('rePassword')?.getError('mismatch')">repassword not match !</p>
                 </div>
             </div>
             <div class="py-2">
