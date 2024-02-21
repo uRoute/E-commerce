@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit , OnDestroy{
   constructor(private _EcommDataService:EcommDataService,private _CartService:CartService,private _toastr: ToastrService){}
   ngOnInit(): void {
     this.dataSubscripe = this._EcommDataService.getAllProducts().subscribe({
-      next:(respo)=>{
+      next:(respo)=>{ 
         console.log(respo.data);
         this.products = respo.data
       },
